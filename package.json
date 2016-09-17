@@ -12,8 +12,8 @@
     "uglify": "uglifyjs app/main.js -o ./dist/bundle.js",
     "build:app": "browserify -s app/main.js > dist/bundle.js && npm run minify:js",
     "minify:js": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js",
-    "build:vendor": "guilp build:vendor",
-    
+    "build:vendor": "guilp build:vendor"
+
   },
   "license": "ISC",
   "dependencies": {
