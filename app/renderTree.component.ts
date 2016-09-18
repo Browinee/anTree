@@ -55,8 +55,9 @@ export class RenderTreeComponent{
         	                 sdata.checked = state;
         	                 if(sdata.data){
         	                    if(sdata.data.length>0){
-        	                	this.checkRecursive(sdata.data,state);
+        	                      	this.checkRecursive(sdata.data,state);
         	                    }
+                            }
 
 
         	            
@@ -64,7 +65,7 @@ export class RenderTreeComponent{
         	              
 
 
-                    });
+                        });
        
         
       	

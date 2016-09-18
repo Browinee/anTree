@@ -20,11 +20,14 @@
   <app-root>Loading...</app-root>
   
    
-  
+  <!--build:app dist/app.min.js-->
     <script src="systemjs.config.js"></script>
-    <script>
+   <!--  <script>
       System.import('app').catch(function(err){ console.error(err);console.log(err) });
-    </script>
+    </script> -->
+    <script src="app/bundle.js"></script>
+  <!-- endbuild-->
+
   
 </body>
 </html>

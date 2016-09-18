@@ -10,9 +10,9 @@
     "typings": "typings",
     "clean": "rm -rf dist",
     "uglify": "uglifyjs app/main.js -o ./dist/bundle.js",
-    "build:app": "browserify -s app/main.js > dist/bundle.js && npm run minify:js",
-    "minify:js": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js",
-    "build:vendor": "guilp build:vendor"
+    "build:vendor": "gulp build:vendor",
+    "build:app":"gulp build:app",
+    "browserify":"browserify app/main.js -o app/bundle.js"
 
   },
   "license": "ISC",
