@@ -9,14 +9,14 @@
     "tsc:w"         : "tsc -w",
     "typings"       : "typings",
     "clean"         : "rm -rf dist",
-    "build"         : "gulp build && npm run assests",
+    "build"         : "npm run clean && gulp build && npm run assests",
     "build:vendor"  : "gulp build:vendor  ",
     "build:bundle"  : "gulp build:bundle ",
     "minify:js"     : "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js",
-    "assests"       :"cp app/*.html dist/ && cp app/*.css dist/"  ,
+    "assests"       :"cp app/*.html dist/app && cp app/*.css dist/app && cp app/*.json dist/app",
    
     "build:app"     : "gulp build:app",
-    "browserify": "browserify app/main.js -o app/bundle.js |uglifyjs"
+    "browserify"    : "browserify app/main.js -o app/bundle.js |uglifyjs"
   },
   "license": "ISC",
   "dependencies": {
