@@ -5,27 +5,33 @@
   <title>Table</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
+    
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <!-- build:vendor dist/vendor.min.js-->
-   <script src="node_modules/core-js/client/shim.min.js"></script>
+ 
+  <!--build:css style.css-->
+     <link rel="stylesheet" href="style.css">
+  <!--endbuild-->
+
+  <!-- build:js vendor.min.js-->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
   <!-- endbuild-->
 </head>
 <body>
   <app-root>Loading...</app-root>
   
    
-  <!--build:app dist/app.min.js-->
-    <script src="systemjs.config.js"></script>
-   <!--  <script>
+  <!--build:app -->
+    
+    <script>
       System.import('app').catch(function(err){ console.error(err);console.log(err) });
-    </script> -->
-    <script src="app/bundle.js"></script>
+    </script>
+  <!--   <script src="app/bundle.js"></script> -->
   <!-- endbuild-->
 
   

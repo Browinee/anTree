@@ -6,9 +6,13 @@ var rev        = require('gulp-rev');
 var useref     = require('gulp-useref');
 var revreplace = require('gulp-rev-replace');
 var addsrc     = require('gulp-add-src');
+var sysBuilder = require('systemjs-builder');
+var gulpif     = require('gulp-if');
+
+var htmlreplace = require('gulp-html-replace');
 gulp.task('build:vendor',function(){
 
-   gulp.src([
+   return gulp.src([
 
       "node_modules/core-js/client/shim.min.js",
       "node_modules/zone.js/dist/zone.js",
@@ -19,46 +23,45 @@ gulp.task('build:vendor',function(){
    .pipe(concat('vendors.min.js'))
    .pipe(sourcemaps.init())
    .pipe(uglify())
-   .pipe(rev())
    .pipe(gulp.dest('./dist'));
 
-   // .pipe(sourcemaps.init())
-   // .pipe(useref())
-   // .pipe(uglify())
-   // .pipe(rev())
-   // .pipe(sourcemaps.write())
-   // .pipe(gulp.dest('./dist'))
-   // .pipe(revreplace())
-
-   
-
-
-
-});
-
-gulp.task('build:app',function(){
-
- gulp.src('app/*.js')
-     .pipe(addsrc.append('config.js'))
-     .pipe(concat('app.min.js'))
-     .pipe(uglify())
-     .pipe(rev())
-     .pipe(dest('./dist'))
-
-
-
 });
 
 
-gulp.task('build',function(){
 
+gulp.task('build:bundle',function(){  
+  
+  var builder = new sysBuilder('','./systemjs.config.js');
+  return builder
+         .buildStatic('./app/main.js','./dist/bundle.js',{ minify: false, sourceMaps: true,encodeNames: false })
+         .then(function() {
+            console.log('Build complete');
+        })
+        .catch(function(err) {
+            console.log('Build bundle error');
+            console.log(err);
+        });
+  
+ 
+});
+
+gulp.task('build',['build:bundle'],function(){
+  
  gulp.src('index.html')
-        .pipe(htmlreplace({
-        'vendor': 'vendors.min.js'
-        }))
-        .pipe(rev())
-        .pipe(revreplace()
+      .pipe(htmlreplace({
 
+         'app':'bundle.js'
+       }) )
+      .pipe(useref())
+      .pipe(gulpif('!*.html', rev()))
+      .pipe(revreplace())
+      .pipe(gulp.dest('./dist'))
+      // .pipe(gulpif(../dist/vendor))
 
+        // .pipe(htmlreplace({
+        // 'vendor': 'vendors.min.js'
+        // }))
+        // .pipe(rev())
+        // .pipe(revreplace())
 
 });
