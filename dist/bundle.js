@@ -16510,6 +16510,7 @@ $__System.registerDynamic("app/app.component.js", ["node_modules/@angular/core/b
             moduleId: module.id,
             selector: 'app-root',
             templateUrl: 'app.component.html',
+            styleUrls: ['app.component.css'],
             directives: [renderTree_component_1.RenderTreeComponent],
             providers: [treeData_service_1.TreeDataService]
         }), __metadata('design:paramtypes', [treeData_service_1.TreeDataService])], AppComponent);
