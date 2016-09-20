@@ -10,16 +10,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
  
-  <link rel="stylesheet" href="style-d0238edecd.css">
+  <link rel="stylesheet" href="build/style.css">
 
-  <script src="vendor-f54849ca59.min.js"></script>
+  <script src="buildvendor.min.js"></script>
 </head>
 <body>
   <app-root>Loading...</app-root>
- 
   
-  <script src="bundle.js"></script>
-
+   
+  <!--build:app -->
+    
+    <script>
+      System.import('app').catch(function(err){ console.error(err);console.log(err) });
+    </script>
+  <!--   <script src="app/bundle.js"></script> -->
+  <!-- endbuild-->
 
   
 </body>

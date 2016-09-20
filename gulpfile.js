@@ -8,8 +8,9 @@ var revreplace = require('gulp-rev-replace');
 var addsrc     = require('gulp-add-src');
 var sysBuilder = require('systemjs-builder');
 var gulpif     = require('gulp-if');
+var minifyCSS  = require('gulp-minify-css');
 
-var htmlreplace = require('gulp-html-replace');
+ var htmlreplace = require('gulp-html-replace');
 gulp.task('build:vendor',function(){
 
    return gulp.src([
@@ -18,11 +19,11 @@ gulp.task('build:vendor',function(){
       "node_modules/zone.js/dist/zone.js",
       "node_modules/reflect-metadata/Reflect.js",
       "node_modules/systemjs/dist/system.src.js",
-      "system.config.js"
+    
    	])
    .pipe(concat('vendors.min.js'))
    .pipe(sourcemaps.init())
-   .pipe(uglify())
+  
    .pipe(gulp.dest('./dist'));
 
 });
@@ -33,16 +34,17 @@ gulp.task('build:bundle',function(){
   
   var builder = new sysBuilder('','./systemjs.config.js');
   return builder
-         .buildStatic('./app/main.js','./dist/bundle.js',{ minify: false, sourceMaps: true,encodeNames: false })
+         .buildStatic('./app/main.js','./build/bundle.js',{ minify:true, sourceMaps: true,encodeNames: false })
          .then(function() {
             console.log('Build complete');
+           
         })
+         
         .catch(function(err) {
             console.log('Build bundle error');
             console.log(err);
         });
-  
- 
+
 });
 
 gulp.task('build',['build:bundle'],function(){
@@ -53,9 +55,12 @@ gulp.task('build',['build:bundle'],function(){
          'app':'bundle.js'
        }) )
       .pipe(useref())
-      .pipe(gulpif('!*.html', rev()))
+      .pipe(gulpif('*.js', rev()))
+      .pipe(gulpif('*.js',uglify()))
+      .pipe(gulpif('*.css', rev()))
+      .pipe(gulpif('*.css',minifyCSS()))
       .pipe(revreplace())
-      .pipe(gulp.dest('./dist'))
+      .pipe(gulp.dest('./dist'));
       // .pipe(gulpif(../dist/vendor))
 
         // .pipe(htmlreplace({
