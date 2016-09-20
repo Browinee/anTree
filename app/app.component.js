@@ -27,8 +27,8 @@ var AppComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'app-root',
-            templateUrl: 'app.component.html',
             styleUrls: ['app.component.css'],
+            templateUrl: 'app.component.html',
             directives: [renderTree_component_1.RenderTreeComponent],
             providers: [treeData_service_1.TreeDataService]
         }), 

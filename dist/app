@@ -1,0 +1,5 @@
+<h1>Tree</h1>
+<div>Hello, it for bundling test!</div>
+<render-tree [varTreeData]="treeData"></render-tree>
+
+

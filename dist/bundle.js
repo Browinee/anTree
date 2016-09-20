@@ -16509,6 +16509,7 @@ $__System.registerDynamic("app/app.component.js", ["node_modules/@angular/core/b
         AppComponent = __decorate([core_1.Component({
             moduleId: module.id,
             selector: 'app-root',
+            styleUrls: ['app.component.css'],
             templateUrl: 'app.component.html',
             directives: [renderTree_component_1.RenderTreeComponent],
             providers: [treeData_service_1.TreeDataService]
