@@ -17,13 +17,24 @@
     "build:app": "gulp build:app",
     "browserify": "browserify app/main.js -o app/bundle.js |uglifyjs && echo 'finished",
     "clean:build": "rimraf build",
-    "assests:build": "mkdirp  build/app && cp app/*.{html,json} build/app/",
+    "assests:build": "mkdirp  build/app && cp app/*.{html,json.css} build/app/",
     "concat:vendor": "concat-cli -f  node_modules/reflect-metadata/Reflect.js node_modules/zone.js/dist/zone.js   node_modules/systemjs/dist/system.src.js node_modules/core-js/client/shim.min.js -o build/vendor.min.js ",
-    "build:js": "npm run concat:vendor && npm run build:bundle && uglifyjs-folder  build -o",
-    "build:jss":"npm run build:bundle &&  uglifyjs-folder  build -o ",
-    "minify:css": "cleancss style.css ",
-    "rev": "useref index.html build/index.html ",
-    "build:build": " npm run clean:build && npm run assests:build&&  npm run rev &&  npm run minify:css && npm run build:jss "
+    "build:js": "npm run uglifyjs:vendor & npm run uglifyjs:bundle",
+    "minify:css": "cleancss style.css && cp style.css build/",
+    "useref": "useref index.html build/index.html ",
+    "build:build": " npm run clean:build && npm run assests:build&&  npm run rev &&  npm run minify:css && npm run build:jss ",
+    "test": "node task/test.js",
+
+    "clean:build": "rimraf build && echo 'clean finished' ",
+    "uglifyjs:vendor": "uglifyjs node_modules/reflect-metadata/Reflect.js node_modules/zone.js/dist/zone.js node_modules/systemjs/dist/system.src.js node_modules/core-js/client/shim.min.js systemjs.config.js -o build/vendor.min.js",
+    "uglifyjs:bundle": "node task/buildjs.js && uglifyjs build/bundle.min.js",
+    "build:js":"npm run uglifyjs:vendor && npm run uglifyjs:bundle && echo 'build js finished'",
+    "imagemin": "imagemin images/* --out-dir=build/images && echo 'imagemin finished'",
+    "minify:css": "cleancss style.css && cp style.css build/  && echo 'minify css finished'",
+    "useref": "useref index.html build/index.html  && echo 'html useref finished'",
+    "assests:build": "mkdirp  build/app && cp app/*.{html,json,css} build/app/ && echo 'copy assests finished'",
+    "build:build":" npm run clean:build && npm run assests:build &&  npm run useref &&  npm run minify:css && npm run build:js && npm run imagemin && echo 'build complete"
+
   },
   "license": "ISC",
   "dependencies": {
@@ -48,9 +59,11 @@
   "devDependencies": {
     "browserify": "^13.1.0",
     "clean-css": "^3.4.19",
-    "concat": "0.0.1-security",
-    "concat-glob-cli": "^0.1.0",
     "concurrently": "^2.0.0",
+    "eslint-config-google": "^0.6.0",
+    "eslint-config-standard": "^6.0.1",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-standard": "^2.0.0",
     "gulp": "^3.9.1",
     "gulp-add-src": "^0.2.0",
     "gulp-concat": "^2.6.0",
@@ -62,7 +75,6 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^2.0.0",
     "gulp-useref": "^3.1.2",
-    "hash-cli": "^0.1.1",
     "lite-server": "^2.2.0",
     "mkdirp": "^0.5.1",
     "node-rev": "^1.2.0",
@@ -70,13 +82,12 @@
     "rev-append": "0.0.1",
     "rev-cli": "^1.1.2",
     "rev-static": "^1.2.0",
+    "strip-comments": "^0.4.4",
     "systemjs-builder": "^0.15.31",
     "typescript": "^1.8.10",
     "typings": "^1.0.4",
     "typings-core": "^1.4.1",
     "uglify-js": "^2.7.3",
-    "uglifyjs-folder": "^0.2.1",
-  
     "useref-file": "^0.2.1"
   }
 }
