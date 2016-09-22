@@ -1,8 +1,8 @@
 
 var sysBuilder = require('systemjs-builder');
-var builder = new sysBuilder('..','../systemjs.config.js');
+var builder = new sysBuilder('../antree','systemjs.config.js');
   return builder
-         .buildStatic('../app/main.js','../build/bundle.min.js',{ minify:true, sourceMaps: true,encodeNames: false })
+         .buildStatic('app/main.js','build/bundle.min.js',{minify:false,  sourceMaps: true,encodeNames: false })
          .then(function() {
             console.log('Build complete');
            
